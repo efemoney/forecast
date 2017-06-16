@@ -7,3 +7,6 @@
 /build
 /captures
 .externalNativeBuild
+
+# Exclude sensitive file
+secrets.properties
