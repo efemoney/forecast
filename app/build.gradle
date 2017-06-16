@@ -2,6 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+def props = new Properties()
+props.load new FileInputStream(new File('secrets.properties'))
+
 android {
     compileSdkVersion 25
     buildToolsVersion "26.0.0"
@@ -15,6 +18,8 @@ android {
 
         versionCode 1
         versionName "1.0"
+
+        buildConfigField 'String', 'OWM_API_KEY', "\"${props['OWM_API_KEY']}\""
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -32,6 +37,7 @@ ext {
 
     supportVersion = '25.4.0'
     playServicesVersion = '11.0.1'
+    gsonVersion = '2.8.1'
     daggerVersion = '2.11'
     okHttpVersion = '3.8.0'
     retrofitVersion = '2.3.0'
@@ -40,11 +46,12 @@ ext {
 }
 
 dependencies {
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlinVersion"
 
     implementation "com.android.support:design:$supportVersion"
     implementation "com.android.support:appcompat-v7:$supportVersion"
+
+    implementation "com.google.code.gson:gson:$gsonVersion"
 
     implementation "com.squareup.okhttp3:okhttp:$okHttpVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
