@@ -22,6 +22,7 @@ and rename the file to `secrets.properties`
 #### Libraries Used
  * Design Support Libraries
  * AppCompat Support Libraries
+ * Google Play Services 11 - for retrieving location
  * Retrofit - as REST API client
  * Gson - for JSON parsing
  * Glide - for image loading
