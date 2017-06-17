@@ -6,7 +6,7 @@ import com.efemoney.forecast.di.Remote
 import io.reactivex.Single
 import javax.inject.Inject
 
-class Repository @Inject constructor(
+open class Repository @Inject constructor(
         @Remote private val remoteSource: DataSource) : DataSource {
 
     override fun getWeather(query: QueryBy): Single<WeatherData> {

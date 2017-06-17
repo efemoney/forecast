@@ -1,14 +1,13 @@
 package com.efemoney.forecast.ui.today
 
+import com.efemoney.forecast.SchedulerProvider
 import com.efemoney.forecast.data.model.Location
 import com.efemoney.forecast.data.model.QueryBy
 import com.efemoney.forecast.data.model.WeatherData
 import com.efemoney.forecast.data.remote.Api
 import com.efemoney.forecast.data.service.LocationProvider
 import com.efemoney.forecast.data.source.Repository
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -16,7 +15,8 @@ import javax.inject.Inject
 
 class TodayPresenter @Inject constructor(private val repository: Repository,
                                          private val locationProvider: LocationProvider,
-                                         private val view: TodayMvp.View) : TodayMvp.Presenter {
+                                         private val view: TodayMvp.View,
+                                         private val scheduler: SchedulerProvider) : TodayMvp.Presenter {
 
     var retrieveLocationDisposable: Disposable? = null
     var retrieveWeatherDisposable: Disposable? = null
@@ -39,8 +39,8 @@ class TodayPresenter @Inject constructor(private val repository: Repository,
 
             retrieveLocationDisposable = locationProvider.retrieveLocation()
 
-                    .subscribeOn(Schedulers.single())
-                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(scheduler.single())
+                    .observeOn(scheduler.mainThread())
 
                     .doFinally { view.showProgressIndicator(false) }
 
@@ -71,8 +71,8 @@ class TodayPresenter @Inject constructor(private val repository: Repository,
         val query = QueryBy.GeoCoords(location.lng, location.lat)
         retrieveWeatherDisposable = repository.getWeather(query)
 
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(scheduler.io())
+                .observeOn(scheduler.mainThread())
 
                 .doFinally { view.showProgressIndicator(false) }
 
