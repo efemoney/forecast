@@ -1,8 +1,8 @@
 package com.efemoney.forecast.di
 
+import com.efemoney.forecast.data.remote.Api
 import com.efemoney.forecast.data.remote.AuthInterceptor
 import com.efemoney.forecast.data.remote.ConnectivityChecker
-import com.efemoney.forecast.data.remote.OwmApi
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -29,7 +29,7 @@ class ApiModule(private val baseUrl: String) {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-        val authInterceptor = AuthInterceptor(OwmApi.API_KEY)
+        val authInterceptor = AuthInterceptor(Api.API_KEY)
 
         return OkHttpClient.Builder()
                 .addInterceptor(checker)
@@ -48,9 +48,9 @@ class ApiModule(private val baseUrl: String) {
                 .build()
     }
 
-    @Provides @Singleton fun api(retrofit: Retrofit): OwmApi {
+    @Provides @Singleton fun api(retrofit: Retrofit): Api {
 
-        return retrofit.create<OwmApi>() // Arguably better syntax
+        return retrofit.create<Api>() // Arguably better syntax
     }
 
     inline fun <reified T> Retrofit.create(): T {

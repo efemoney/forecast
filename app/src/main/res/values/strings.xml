@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Forecast</string>
+    <string name="grant">Grant</string>
+
+    <string name="format_last_updated">Last updated: %1$s</string>
+    <string name="format_location">%1$s, %2$s</string>
+    <string name="format_temp_min">min: %1$sºC</string>
+    <string name="format_temp_max">Max: %1$sºC</string>
+    <string name="forecast">Today\'s forecast:</string>
+    <string name="temperature">Today\'s temperature:</string>
+
 </resources>

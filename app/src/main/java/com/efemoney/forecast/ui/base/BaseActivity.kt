@@ -6,14 +6,12 @@ import com.efemoney.forecast.Application
 
 open class BaseActivity : AppCompatActivity() {
 
-    val app = application as Application // getApplication() then cast
-
-    val appComponent = app.component // getApp() then access component
+    val application
+        get() = getApplication() as Application
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         if (item?.itemId == android.R.id.home) {
-
             onBackPressed()
             return true
         }

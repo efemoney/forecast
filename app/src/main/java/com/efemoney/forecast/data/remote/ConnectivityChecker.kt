@@ -2,6 +2,8 @@ package com.efemoney.forecast.data.remote
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkInfo
+import com.efemoney.forecast.util.service
 import okhttp3.*
 import javax.inject.Inject
 
@@ -9,8 +11,9 @@ class ConnectivityChecker @Inject constructor(val context: Context) : Intercepto
 
     override fun intercept(chain: Interceptor.Chain): Response {
 
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val ni = cm.activeNetworkInfo
+        val cm = context.service<ConnectivityManager>()
+
+        val ni: NetworkInfo? = cm.activeNetworkInfo
 
         if (ni == null || !ni.isConnectedOrConnecting) { // Network Unavailable
 
@@ -31,7 +34,7 @@ class ConnectivityChecker @Inject constructor(val context: Context) : Intercepto
     companion object {
 
         private val MEDIA_TYPE: MediaType? = MediaType.parse("application/json; charset=UTF-8")
-        private val BODY = "{\"status_code\": 404,\"message\": \"Please check your internet connection and try again.\"}"
+        private const val BODY = "{\"cod\": 404,\"message\": \"Please check your internet connection and try again.\"}"
     }
 }
 

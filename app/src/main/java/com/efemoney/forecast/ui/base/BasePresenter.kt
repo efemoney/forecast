@@ -1,4 +1,8 @@
 package com.efemoney.forecast.ui.base
 
-class BasePresenter {
+interface BasePresenter {
+
+    fun subscribe()
+
+    fun unsubscribe()
 }

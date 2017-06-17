@@ -1,26 +1,24 @@
 package com.efemoney.forecast.data.remote
 
 import com.efemoney.forecast.BuildConfig
-import com.efemoney.forecast.data.remote.request.CityNameQuery
-import com.efemoney.forecast.data.remote.request.ZipCodeQuery
-import com.efemoney.forecast.data.remote.response.WeatherData
+import com.efemoney.forecast.data.model.WeatherData
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface OwmApi {
+interface Api {
 
-    @GET("weather")
+    @GET("weather?units=metric")
     fun weatherByCityId(@Query("id") id: String): Single<WeatherData>
 
-    @GET("weather")
-    fun weatherByCityName(@Query("q") query : CityNameQuery): Single<WeatherData>
+    @GET("weather?units=metric")
+    fun weatherByCityName(@Query("q") query : String): Single<WeatherData>
 
-    @GET("weather")
-    fun weatherByZipCodes(@Query("zip") query : ZipCodeQuery): Single<WeatherData>
+    @GET("weather?units=metric")
+    fun weatherByZipCodes(@Query("zip") query : String): Single<WeatherData>
 
-    @GET("weather")
-    fun weatherByGeoCoords(@Query("lon") lng: String, @Query("lat") lat: String): Single<WeatherData>
+    @GET("weather?units=metric")
+    fun weatherByGeoCoords(@Query("lon") lng: Double, @Query("lat") lat: Double): Single<WeatherData>
 
     companion object {
 

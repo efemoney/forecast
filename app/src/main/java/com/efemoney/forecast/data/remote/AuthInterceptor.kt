@@ -8,11 +8,12 @@ class AuthInterceptor @Inject constructor(val token: String) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response? {
 
-        val authedRequest = chain.request()
-                ?.newBuilder()
-                ?.addHeader("Authorization", "Bearer: $token")
-                ?.build();
+        val url = chain.request().url()
 
-        return chain.proceed(authedRequest);
+        val newRequest = chain.request().newBuilder()
+                .url(url.newBuilder().addQueryParameter("appid", token).build())
+                .build()
+
+        return chain.proceed(newRequest)
     }
 }

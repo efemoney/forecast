@@ -1,20 +1,23 @@
-package com.efemoney.forecast.data.remote.response
+package com.efemoney.forecast.data.model
 
 import com.google.gson.annotations.SerializedName
 
 class WeatherData {
 
     @SerializedName("id") var id: Int = 0
-    @SerializedName("cod") var cod: Int = 0
+    @SerializedName("dt") var timeSeconds: Long = 0
+    @SerializedName("cod") var code: Int = 0
+
+    @SerializedName("sys") var sys: Sys? = null
+    @SerializedName("wind") var wind: Wind? = null
+    @SerializedName("main") var main: Main? = null
+    @SerializedName("rain") var rain: Rain? = null
     @SerializedName("name") var name: String? = null
     @SerializedName("base") var base: String? = null
+
     @SerializedName("coord") var coordinates: Coordinates? = null
-    @SerializedName("main") var main: Main? = null
-    @SerializedName("wind") var wind: Wind? = null
-    @SerializedName("rain") var rain: Rain? = null
     @SerializedName("clouds") var clouds: Clouds? = null
-    @SerializedName("dt") var dataTime: Long = 0
-    @SerializedName("sys") var sys: Sys? = null
+
     @SerializedName("weather") var weather: List<Weather>? = null
 
     class Coordinates {
